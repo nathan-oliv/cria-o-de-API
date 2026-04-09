@@ -55,7 +55,6 @@ public class usuario {
     public void setDataNascimento(LocalDate dataNascimento) { // Método para definir a data de nascimento do usuário
         this.dataNascimento = dataNascimento; // Define a data de nascimento do usuário
     }
-
     
     
 
