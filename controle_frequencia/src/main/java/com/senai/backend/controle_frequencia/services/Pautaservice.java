@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.senai.backend.controle_frequencia.models.pauta;
 import com.senai.backend.controle_frequencia.repositories.PautaRepository;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 public class Pautaservice {
 
@@ -56,19 +55,6 @@ public class Pautaservice {
         }
 
 
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
 
 }
