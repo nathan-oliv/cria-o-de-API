@@ -1,4 +1,4 @@
-package controllers;
+package com.senai.backend.controle_frequencia.controllers;
  
     import java.util.List;
 

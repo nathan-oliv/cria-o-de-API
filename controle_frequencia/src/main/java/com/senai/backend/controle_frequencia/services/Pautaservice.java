@@ -9,52 +9,46 @@ import org.springframework.stereotype.Service;
 import com.senai.backend.controle_frequencia.models.pauta;
 import com.senai.backend.controle_frequencia.repositories.PautaRepository;
 
+@Service
+public class Pautaservice {// Classe de serviço para gerenciar as pautas
 
-public class Pautaservice {
+    @Autowired // Injeção de dependência do repositório de pautas
+    private PautaRepository pautaRepository;// Repositório para acesso aos dados das pautas
 
-    @Service
-    public class PautaService{//Classe de serviço para gerenciar as pautas
+    public long contarPautas() {// Contar o número de pautas
+        return pautaRepository.count();// Retorna o número total de pautas
+    }
 
-        @Autowired//Injeção de dependência do repositório de pautas
-        private PautaRepository pautaRepository;//Repositório para acesso aos dados das pautas
+    public pauta buscarPauta(Integer id) {// Buscar uma pauta pelo ID
+        return pautaRepository.findById(id).get();// Retorna a pauta encontrada ou lança uma exceção
+    }
 
-        public long contarPautas(){//Contar o número de pautas
-            return pautaRepository.count();//Retorna o número total de pautas
-        }   
+    public List<pauta> listarPautas() {// Listar todas as pautas
+        return pautaRepository.findAll();// Retorna a lista de todas as pautas
+    }
 
-        public pauta buscarPauta(Integer id){//Buscar uma pauta pelo ID
-            return pautaRepository.findById(id).get();//Retorna a pauta encontrada ou lança uma exceção
+    public Boolean deletarPauta(Integer id) {// Deletar uma pauta pelo ID
+        if (pautaRepository.existsById(id)) {// Verifica se a pauta existe
+            pautaRepository.deleteById(id);// Deleta a pauta
+            return true;// Retorna verdadeiro se a deleção foi bem-sucedida
         }
+        return false;// Retorna falso se a pauta não foi encontrada
+    }
 
-        public List<pauta> listarPautas(){//Listar todas as pautas
-            return pautaRepository.findAll();//Retorna a lista de todas as pautas
-        }
+    public pauta cadastrarPauta(pauta pauta) {// Cadastrar uma nova pauta
+        return pautaRepository.save(pauta);// Salva a pauta e retorna a pauta salva
+    }
 
-        public Boolean deletarPauta(Integer id){//Deletar uma pauta pelo ID
-            if(pautaRepository.existsById(id)){//Verifica se a pauta existe
-                pautaRepository.deleteById(id);//Deleta a pauta
-                return true;//Retorna verdadeiro se a deleção foi bem-sucedida
+    public pauta atualizarPauta(Integer id, pauta pauta) {
+        pauta pautaRecuperada = buscarPauta(id);
+        if (pautaRecuperada != null) {
+            pautaRecuperada.setId(id);
+            if (pauta.getTurma() != null) {
+                pautaRecuperada.setTurma(pauta.getTurma());
             }
-            return false;//Retorna falso se a pauta não foi encontrada
+            return pautaRepository.save(pautaRecuperada);
         }
-
-        public pauta cadastrarPauta(pauta pauta){//Cadastrar uma nova pauta
-            return pautaRepository.save(pauta);//Salva a pauta e retorna a pauta salva
-        }
-
-        public pauta atualizarPauta(Integer id, pauta pauta){
-            pauta pautaRecuperada = buscarPauta(id);
-            if (pautaRecuperada != null){
-                pautaRecuperada.setId(id);
-                if(pauta.getTurma()!=null){
-                    pautaRecuperada.setTurma(pauta.getTurma());
-                }
-                return pautaRepository.save(pautaRecuperada);   
-            } 
-            return null;
-        }
-
-
+        return null;
     }
 
 }

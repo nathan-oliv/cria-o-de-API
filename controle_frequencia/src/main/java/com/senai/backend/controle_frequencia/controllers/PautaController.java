@@ -1,4 +1,4 @@
-package controllers;
+package com.senai.backend.controle_frequencia.controllers;
 
 import java.util.List;
 
@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.backend.controle_frequencia.models.pauta;
-import com.senai.backend.controle_frequencia.services.Pautaservice.PautaService;
+import com.senai.backend.controle_frequencia.services.Pautaservice;
+
 
 @RestController
 @RequestMapping("/pauta")
 public class PautaController {
 
     @Autowired
-    private PautaService pautaService;
+    private Pautaservice pautaService;
 
     @GetMapping("/contar-pautas")
     public Long contarPautas(){
